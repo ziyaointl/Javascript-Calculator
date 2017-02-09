@@ -15,6 +15,6 @@ export default {
 }
 </script>
 
-<style lang="less">
-  @import "./css/bulma.less";
+<style lang="sass">
+
 </style>
