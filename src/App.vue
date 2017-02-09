@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <h1>This is a test</h1>
+    <section class="hero is-medium is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Javascript Calculator</h1>
+        </div>
+      </div>
+    </section>
+    <div class="box">
+      <a href="#" class="button is-primary is-outlined">Button</a>
+    </div>
   </div>
 </template>
 
@@ -18,4 +27,7 @@ export default {
 <style lang="sass">
   @import "css/bulma/utilities/_all.sass";
   @import "css/bulma/base/_all.sass";
+  @import "css/bulma/elements/_all.sass";
+  @import "css/bulma/grid/_all.sass";
+  @import "css/bulma/layout/_all.sass";
 </style>
