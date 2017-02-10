@@ -15,34 +15,34 @@
                     </div>
                     <div class="columns">
                         <div class="column">
-                            <a href="#" class="button is-primary is-outlined is-large">1</a>
-                            <a href="#" class="button is-primary is-outlined is-large">2</a>
-                            <a href="#" class="button is-primary is-outlined is-large">3</a>
-                            <a href="#" class="button is-primary is-outlined is-large">+</a>
+                            <a @click="pressedNum(1)" class="button is-primary is-outlined is-large">1</a>
+                            <a @click="pressedNum(2)" class="button is-primary is-outlined is-large">2</a>
+                            <a @click="pressedNum(3)" class="button is-primary is-outlined is-large">3</a>
+                            <a @click="pressedAdd" class="button is-primary is-outlined is-large">+</a>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column">
-                            <a href="#" class="button is-primary is-outlined is-large">4</a>
-                            <a href="#" class="button is-primary is-outlined is-large">5</a>
-                            <a href="#" class="button is-primary is-outlined is-large">6</a>
+                            <a @click="pressedNum(4)" class="button is-primary is-outlined is-large">4</a>
+                            <a @click="pressedNum(5)" class="button is-primary is-outlined is-large">5</a>
+                            <a @click="pressedNum(6)" class="button is-primary is-outlined is-large">6</a>
                             <a href="#" class="button is-primary is-outlined is-large">-</a>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column">
-                            <a href="#" class="button is-primary is-outlined is-large">7</a>
-                            <a href="#" class="button is-primary is-outlined is-large">8</a>
-                            <a href="#" class="button is-primary is-outlined is-large">9</a>
-                            <a href="#" class="button is-primary is-outlined is-large">*</a>
+                            <a @click="pressedNum(7)" class="button is-primary is-outlined is-large">7</a>
+                            <a @click="pressedNum(8)" class="button is-primary is-outlined is-large">8</a>
+                            <a @click="pressedNum(9)" class="button is-primary is-outlined is-large">9</a>
+                            <a @click="pressedMultiply" class="button is-primary is-outlined is-large">*</a>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column">
-                            <a href="#" class="button is-primary is-outlined is-large">C</a>
-                            <a href="#" class="button is-primary is-outlined is-large">0</a>
-                            <a href="#" class="button is-primary is-outlined is-large">=</a>
-                            <a href="#" class="button is-primary is-outlined is-large">/</a>
+                            <a @click="pressedClear" class="button is-primary is-outlined is-large">C</a>
+                            <a @click="pressedNum(0)" class="button is-primary is-outlined is-large">0</a>
+                            <a @click="pressedEqual" class="button is-primary is-outlined is-large">=</a>
+                            <a @click="pressedDivide" class="button is-primary is-outlined is-large">/</a>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,53 @@
         name: 'app',
         data () {
             return {
-                output: 0
+                storage: 0,
+                output: 0,
+                key: 0,
+                currentOperation: null
+            }
+        },
+        methods: {
+            pressedNum(num) {
+                this.storage = this.output;
+                this.key = num;
+                this.output = num;
+            },
+            pressedAdd() {
+                this.currentOperation = "add";
+            },
+            pressedMinus() {
+                this.currentOperation = "minus";
+            },
+            pressedMultiply() {
+                this.currentOperation = "multiply";
+            },
+            pressedDivide() {
+                this.currentOperation = "divide";
+            },
+            pressedEqual() {
+                if (this.currentOperation === "add") {
+                    this.storage += this.key;
+                    this.output = this.storage;
+                }
+                if (this.currentOperation === "minus") {
+                    this.storage -= this.key;
+                    this.output = this.storage;
+                }
+                if (this.currentOperation === "multiply") {
+                    this.storage *= this.key;
+                    this.output = this.storage;
+                }
+                if (this.currentOperation === "divide") {
+                    this.storage /= this.key;
+                    this.output = this.storage;
+                }
+            },
+            pressedClear() {
+                this.storage = 0;
+                this.key = 0;
+                this.output = 0;
+                this.currentOperation = null
             }
         }
     }
