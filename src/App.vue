@@ -6,7 +6,7 @@
                     <h1 class="title">Javascript Calculator</h1>
                 </div>
             </div>
-            <div class="container hero-body has-text-centered">
+            <div class="container hero-body has-text-centered main">
                 <div class="box">
                     <div class="columns">
                         <div class="column">
@@ -80,7 +80,7 @@
         width: 50px;
     }
 
-    .button-wide {
-        width: 100px;
+    .main {
+        margin: 0 auto;
     }
 </style>
