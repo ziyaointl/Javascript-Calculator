@@ -9,8 +9,8 @@
             <div class="container hero-body has-text-centered main">
                 <div class="box">
                     <div class="columns">
-                        <div class="column">
-                            <h1 class="screen">0123</h1>
+                        <div class="column has-text-right">
+                            <h1 class="title" id="output">{{ output }}</h1>
                         </div>
                     </div>
                     <div class="columns">
@@ -55,7 +55,9 @@
     export default {
         name: 'app',
         data () {
-            return {}
+            return {
+                output: 0
+            }
         }
     }
 </script>
@@ -72,15 +74,15 @@
         margin-left: 20px;
     }
 
-    .screen {
-        text-align: right;
-    }
-
     .button {
         width: 50px;
     }
 
     .main {
         margin: 0 auto;
+    }
+
+    #output {
+        color: #363636;
     }
 </style>
