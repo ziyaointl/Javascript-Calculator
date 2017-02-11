@@ -56,32 +56,36 @@
         name: 'app',
         data () {
             return {
-                storage: 0,
-                output: 0,
-                key: 0,
+                storage: math.fraction(0, 1),
+                outputFraction: math.fraction(0, 1),
+                key: math.fraction(0, 1),
                 currentOperation: "add",
                 operationPressed: false,
                 equalHasBeenPressed: false
             }
         },
+        computed: {
+            output () {
+                return math.number(this.outputFraction);
+            }
+        },
         methods: {
             pressedNum(num) {
                 if (this.operationPressed) {
-                    this.storage = this.output;
-                    this.key = num;
-                    this.output = num;
+                    this.storage = this.outputFraction;
+                    this.key = math.fraction(num, 1);
+                    this.outputFraction = math.fraction(num, 1);
                     this.operationPressed = false;
                     this.equalHasBeenPressed = false;
                 }
-                else if (this.equalHasBeenPressed === true) {
-                    this.pressedClear();
-                    this.output = this.output * 10 + num;
-                    this.key = this.output;
-                    this.equalHasBeenPressed = false;
-                }
                 else {
-                    this.output = this.output * 10 + num;
-                    this.key = this.output;
+                    if (this.equalHasBeenPressed === true) {
+                        this.pressedClear();
+                        this.equalHasBeenPressed = false;
+                    }
+                    this.outputFraction = math.multiply(this.outputFraction, math.fraction(10, 1));
+                    this.outputFraction = math.add(this.outputFraction, math.fraction(num, 1));
+                    this.key = this.outputFraction;
                 }
             },
             pressedAdd() {
@@ -117,26 +121,26 @@
             },
             pressedEqual() {
                 if (this.currentOperation === "add") {
-                    this.storage += this.key;
+                    this.storage = math.add(this.storage, this.key);
                 }
                 if (this.currentOperation === "minus") {
-                    this.storage -= this.key;
+                    this.storage = math.subtract(this.storage, this.key);
                 }
                 if (this.currentOperation === "multiply") {
-                    this.storage *= this.key;
+                    this.storage = math.multiply(this.storage, this.key);
                 }
                 if (this.currentOperation === "divide") {
-                    this.storage /= this.key;
+                    this.storage = math.divide(this.storage, this.key);
                 }
-                this.output = this.storage;
+                this.outputFraction = this.storage;
                 this.equalHasBeenPressed = true;
                 this.operationPressed = false;
             },
             pressedClear() {
-                this.storage = 0;
-                this.key = 0;
-                this.output = 0;
-                this.currentOperation = "add"
+                this.storage = math.fraction(0, 1);
+                this.outputFraction = math.fraction(0, 1);
+                this.key = math.fraction(0, 1);
+                this.currentOperation = "add";
             }
         }
     }
@@ -148,6 +152,7 @@
     @import "css/bulma/elements/_all.sass";
     @import "css/bulma/grid/_all.sass";
     @import "css/bulma/layout/_all.sass";
+
     html {
         -ms-touch-action: manipulation;
         touch-action: manipulation;
