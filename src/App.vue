@@ -26,7 +26,7 @@
                             <a @click="pressedNum(4)" class="button is-primary is-outlined is-large">4</a>
                             <a @click="pressedNum(5)" class="button is-primary is-outlined is-large">5</a>
                             <a @click="pressedNum(6)" class="button is-primary is-outlined is-large">6</a>
-                            <a href="#" class="button is-primary is-outlined is-large">-</a>
+                            <a @click="pressedMinus" class="button is-primary is-outlined is-large">-</a>
                         </div>
                     </div>
                     <div class="columns">
@@ -59,28 +59,42 @@
                 storage: 0,
                 output: 0,
                 key: 0,
-                currentOperation: null
+                currentOperation: null,
+                operationPressed: false
             }
         },
         methods: {
             pressedNum(num) {
-                this.storage = this.output;
-                this.key = num;
-                this.output = num;
+                if (this.operationPressed) {
+                    this.storage = this.output;
+                    this.key = num;
+                    this.output = num;
+                    this.operationPressed = false;
+                }
+                else {
+                    this.output = this.output * 10 + num;
+                    this.key = this.output;
+                }
+
             },
             pressedAdd() {
+                this.operationPressed = true;
                 this.currentOperation = "add";
             },
             pressedMinus() {
+                this.operationPressed = true;
                 this.currentOperation = "minus";
             },
             pressedMultiply() {
+                this.operationPressed = true;
                 this.currentOperation = "multiply";
             },
             pressedDivide() {
+                this.operationPressed = true;
                 this.currentOperation = "divide";
             },
             pressedEqual() {
+                this.operationPressed = true;
                 if (this.currentOperation === "add") {
                     this.storage += this.key;
                     this.output = this.storage;
