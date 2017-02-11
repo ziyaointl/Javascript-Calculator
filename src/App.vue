@@ -6,8 +6,8 @@
                     <h1 class="title">Javascript Calculator</h1>
                 </div>
             </div>
-            <div class="container hero-body has-text-centered main">
-                <div class="box">
+            <div class="container hero-body has-text-centered">
+                <div class="main box">
                     <div class="columns">
                         <div class="column has-text-right">
                             <h1 class="title" id="output">{{ output }}</h1>
@@ -159,7 +159,7 @@
     }
 
     .main {
-        margin: 0 auto;
+        margin: auto;
     }
 
     #output {
