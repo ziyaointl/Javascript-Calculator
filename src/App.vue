@@ -148,6 +148,16 @@
     @import "css/bulma/elements/_all.sass";
     @import "css/bulma/grid/_all.sass";
     @import "css/bulma/layout/_all.sass";
+    html {
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+    }
+
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden
+    }
 
     .hero-head {
         margin-top: 20px;
