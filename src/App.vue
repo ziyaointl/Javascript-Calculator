@@ -59,8 +59,9 @@
                 storage: 0,
                 output: 0,
                 key: 0,
-                currentOperation: null,
-                operationPressed: false
+                currentOperation: "add",
+                operationPressed: false,
+                equalHasBeenPressed: false
             }
         },
         methods: {
@@ -70,53 +71,72 @@
                     this.key = num;
                     this.output = num;
                     this.operationPressed = false;
+                    this.equalHasBeenPressed = false;
+                }
+                else if (this.equalHasBeenPressed === true) {
+                    this.pressedClear();
+                    this.output = this.output * 10 + num;
+                    this.key = this.output;
+                    this.equalHasBeenPressed = false;
                 }
                 else {
                     this.output = this.output * 10 + num;
                     this.key = this.output;
                 }
-
             },
             pressedAdd() {
+                if (this.equalHasBeenPressed === false) {
+                    this.pressedEqual();
+                }
+                else {
+                    this.equalHasBeenPressed = false;
+                }
                 this.operationPressed = true;
                 this.currentOperation = "add";
             },
             pressedMinus() {
+                if (this.equalHasBeenPressed === false) {
+                    this.pressedEqual();
+                }
                 this.operationPressed = true;
                 this.currentOperation = "minus";
             },
             pressedMultiply() {
+                if (this.equalHasBeenPressed === false) {
+                    this.pressedEqual();
+                }
                 this.operationPressed = true;
                 this.currentOperation = "multiply";
             },
             pressedDivide() {
+                if (this.equalHasBeenPressed === false) {
+                    this.pressedEqual();
+                }
                 this.operationPressed = true;
                 this.currentOperation = "divide";
             },
             pressedEqual() {
-                this.operationPressed = true;
                 if (this.currentOperation === "add") {
                     this.storage += this.key;
-                    this.output = this.storage;
                 }
                 if (this.currentOperation === "minus") {
                     this.storage -= this.key;
-                    this.output = this.storage;
                 }
                 if (this.currentOperation === "multiply") {
                     this.storage *= this.key;
-                    this.output = this.storage;
                 }
                 if (this.currentOperation === "divide") {
                     this.storage /= this.key;
-                    this.output = this.storage;
                 }
+                this.output = this.storage;
+                this.equalHasBeenPressed = true;
+                this.operationPressed = false;
             },
             pressedClear() {
                 this.storage = 0;
                 this.key = 0;
                 this.output = 0;
-                this.currentOperation = null
+                this.currentOperation = "add"
             }
         }
     }
