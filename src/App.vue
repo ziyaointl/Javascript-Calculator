@@ -142,6 +142,18 @@
                 this.key = math.fraction(0, 1);
                 this.currentOperation = "add";
             }
+        },
+        created() {
+            let vm = this;
+            Event.$on('pressedNum', function (input) {
+                vm.pressedNum(input);
+            });
+            Event.$on('pressedClear', vm.pressedClear);
+            Event.$on('pressedEqual', vm.pressedEqual);
+            Event.$on('pressedAdd', vm.pressedAdd);
+            Event.$on('pressedDivide', vm.pressedDivide);
+            Event.$on('pressedMinus', vm.pressedMinus);
+            Event.$on('pressedMultiply', vm.pressedMultiply);
         }
     }
 </script>
