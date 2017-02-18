@@ -83,9 +83,11 @@
                         this.pressedClear();
                         this.equalHasBeenPressed = false;
                     }
-                    this.outputFraction = math.multiply(this.outputFraction, math.fraction(10, 1));
-                    this.outputFraction = math.add(this.outputFraction, math.fraction(num, 1));
-                    this.key = this.outputFraction;
+                    if (true) {
+                        this.outputFraction = math.multiply(this.outputFraction, math.fraction(10, 1));
+                        this.outputFraction = math.add(this.outputFraction, math.fraction(num, 1));
+                        this.key = this.outputFraction;
+                    }
                 }
             },
             pressedAdd() {
@@ -164,6 +166,7 @@
     @import "css/bulma/elements/_all.sass";
     @import "css/bulma/grid/_all.sass";
     @import "css/bulma/layout/_all.sass";
+    @import url('https://fonts.googleapis.com/css?family=Droid+Sans+Mono');
 
     html {
         -ms-touch-action: manipulation;
@@ -190,6 +193,7 @@
     }
 
     #output {
+        font-family: 'Droid Sans Mono', monospace;
         color: #363636;
     }
 </style>
