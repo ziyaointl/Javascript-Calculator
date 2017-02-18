@@ -190,6 +190,7 @@
 
     .main {
         margin: auto;
+        width: 254px;
     }
 
     #output {
