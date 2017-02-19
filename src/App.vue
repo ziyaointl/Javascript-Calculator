@@ -65,13 +65,17 @@
             }
         },
         computed: {
+            //The output displayed on the UI
             output () {
+                //If the value stored is error, display it without further computation.
                 if (this.outputFraction === "error") {
                     return this.outputFraction;
                 }
+                //If the value is 0 in decimal, which mostly occurs after multiple divisions, display integer 0.
                 else if ('' + math.number(this.outputFraction).toFixed(11) === "0.00000000000") {
                     return 0;
                 }
+                //If the number is too long, round it down to 13 digits.
                 else if (this.getLength(math.number(this.outputFraction)) > 13) {
                     if (math.number(this.outputFraction) < 1) {
                         return math.number(this.outputFraction).toFixed(11);
@@ -80,12 +84,14 @@
                         return math.number(this.outputFraction).toPrecision(12);
                     }
                 }
+                //If the number does not fit in any case above, display it without manipulation (other than converting it from fraction to decimal.
                 else {
                     return math.number(this.outputFraction);
                 }
             }
         },
         methods: {
+            //Returns the number of digits of a number.
             getLength(num) {
                 return num.toString().length;
             },
