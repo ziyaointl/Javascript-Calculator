@@ -66,10 +66,24 @@
         },
         computed: {
             output () {
-                return math.number(this.outputFraction);
+                if (this.outputFraction === "error") {
+                    return this.outputFraction;
+                }
+                else if ('' + math.number(this.outputFraction).toFixed(11) === "0.00000000000") {
+                    return 0;
+                }
+                else if (this.getLength(math.number(this.outputFraction)) > 13) {
+                    return math.number(this.outputFraction).toFixed(11);
+                }
+                else {
+                    return math.number(this.outputFraction);
+                }
             }
         },
         methods: {
+            getLength(num) {
+                return num.toString().length;
+            },
             pressedNum(num) {
                 if (this.operationPressed) {
                     this.storage = this.outputFraction;
@@ -83,7 +97,7 @@
                         this.pressedClear();
                         this.equalHasBeenPressed = false;
                     }
-                    if (true) {
+                    if (this.getLength(math.number(this.outputFraction)) <= 12) {
                         this.outputFraction = math.multiply(this.outputFraction, math.fraction(10, 1));
                         this.outputFraction = math.add(this.outputFraction, math.fraction(num, 1));
                         this.key = this.outputFraction;
@@ -122,16 +136,36 @@
                 this.currentOperation = "divide";
             },
             pressedEqual() {
+                if (this.outputFraction === "error") {
+                    this.pressedClear();
+                    return;
+                }
                 if (this.currentOperation === "add") {
-                    this.storage = math.add(this.storage, this.key);
+                    if (this.getLength(math.number(math.add(this.storage, this.key))) <= 13) {
+                        this.storage = math.add(this.storage, this.key);
+                    }
+                    else {
+                        this.storage = "error";
+                    }
                 }
                 if (this.currentOperation === "minus") {
-                    this.storage = math.subtract(this.storage, this.key);
+                    if (this.getLength(math.number(math.subtract(this.storage, this.key))) <= 13) {
+                        this.storage = math.subtract(this.storage, this.key);
+                    }
+                    else {
+                        this.storage = "error";
+                    }
                 }
                 if (this.currentOperation === "multiply") {
-                    this.storage = math.multiply(this.storage, this.key);
+                    if (this.getLength(math.number(math.multiply(this.storage, this.key))) <= 13) {
+                        this.storage = math.multiply(this.storage, this.key);
+                    }
+                    else {
+                        this.storage = "error";
+                    }
                 }
                 if (this.currentOperation === "divide") {
+                    console.log (this.getLength(math.number(math.divide(this.storage, this.key))));
                     this.storage = math.divide(this.storage, this.key);
                 }
                 this.outputFraction = this.storage;
