@@ -73,7 +73,12 @@
                     return 0;
                 }
                 else if (this.getLength(math.number(this.outputFraction)) > 13) {
-                    return math.number(this.outputFraction).toFixed(11);
+                    if (math.number(this.outputFraction) < 1) {
+                        return math.number(this.outputFraction).toFixed(11);
+                    }
+                    else {
+                        return math.number(this.outputFraction).toPrecision(12);
+                    }
                 }
                 else {
                     return math.number(this.outputFraction);
