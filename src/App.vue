@@ -96,22 +96,27 @@
                 return num.toString().length;
             },
             pressedNum(num) {
+                //If an operation (+. -, * or /) has just been pressed
                 if (this.operationPressed) {
-                    this.storage = this.outputFraction;
-                    this.key = math.fraction(num, 1);
-                    this.outputFraction = math.fraction(num, 1);
-                    this.operationPressed = false;
-                    this.equalHasBeenPressed = false;
+                    this.storage = this.outputFraction; //Store the previously displayed number into storage
+                    this.key = math.fraction(num, 1); //Store the value of the key pressed
+                    this.outputFraction = math.fraction(num, 1); //Display the value of the key pressed
+                    this.operationPressed = false; //Set operationPressed back to false, in case the user accidentally presses the button multiple times.
+                    this.equalHasBeenPressed = false; //Set equalHasBeenPressed to false
                 }
+
+                //If an operation has not been pressed
                 else {
+                    //If equal has been pressed, but no further operation is given
                     if (this.equalHasBeenPressed === true) {
-                        this.pressedClear();
+                        this.pressedClear(); //Reset the calculator
                         this.equalHasBeenPressed = false;
                     }
+                    //If the number of digits in display does not exceed 12
                     if (this.getLength(math.number(this.outputFraction)) <= 12) {
-                        this.outputFraction = math.multiply(this.outputFraction, math.fraction(10, 1));
-                        this.outputFraction = math.add(this.outputFraction, math.fraction(num, 1));
-                        this.key = this.outputFraction;
+                        this.outputFraction = math.multiply(this.outputFraction, math.fraction(10, 1)); //outputFraction *= 10
+                        this.outputFraction = math.add(this.outputFraction, math.fraction(num, 1)); //outputFraction += the value of the key pressed
+                        this.key = this.outputFraction; //Store the value of the key pressed
                     }
                 }
             },
