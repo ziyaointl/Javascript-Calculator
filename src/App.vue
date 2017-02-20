@@ -110,7 +110,6 @@
                     //If equal has been pressed, but no further operation is given
                     if (this.equalHasBeenPressed === true) {
                         this.pressedClear(); //Reset the calculator
-                        this.equalHasBeenPressed = false;
                     }
                     //If the number of digits in display does not exceed 12
                     if (this.getLength(math.number(this.outputFraction)) <= 12) {
@@ -153,7 +152,6 @@
             },
             pressedEqual() {
                 if (this.outputFraction === "error") {
-                    this.pressedClear();
                     return;
                 }
                 if (this.currentOperation === "add") {
@@ -193,6 +191,7 @@
                 this.outputFraction = math.fraction(0, 1);
                 this.key = math.fraction(0, 1);
                 this.currentOperation = "add";
+                this.equalHasBeenPressed = false;
             }
         },
         created() {
