@@ -149,9 +149,12 @@
                 this.currentOperation = "divide";
             },
             pressedEqual() {
+                //If an error is being displayed, do nothing
                 if (this.outputFraction === "error") {
                     return;
                 }
+                //If the current operation is add, check whether the result exceeds 13 digits.
+                //If it doesn't, store the result in storage. If it does, display error.
                 if (this.currentOperation === "add") {
                     if (this.getLength(math.number(math.add(this.storage, this.key))) <= 13) {
                         this.storage = math.add(this.storage, this.key);
@@ -160,6 +163,8 @@
                         this.storage = "error";
                     }
                 }
+                //If the current operation is minus, check whether the result exceeds 13 digits.
+                //If it doesn't, store the result in storage. If it does, display error.
                 if (this.currentOperation === "minus") {
                     if (this.getLength(math.number(math.subtract(this.storage, this.key))) <= 13) {
                         this.storage = math.subtract(this.storage, this.key);
@@ -168,6 +173,8 @@
                         this.storage = "error";
                     }
                 }
+                //If the current operation is multiply, check whether the result exceeds 13 digits.
+                //If it doesn't, store the result in storage. If it does, display error.
                 if (this.currentOperation === "multiply") {
                     if (this.getLength(math.number(math.multiply(this.storage, this.key))) <= 13) {
                         this.storage = math.multiply(this.storage, this.key);
@@ -176,11 +183,12 @@
                         this.storage = "error";
                     }
                 }
+                //If the current operation is divide, store the result in storage.
+                //Since this calculator only allows division by integer values, the absolute value of the result is always less than or equal to the previous value. Therefore, no check is needed.
                 if (this.currentOperation === "divide") {
-                    console.log (this.getLength(math.number(math.divide(this.storage, this.key))));
                     this.storage = math.divide(this.storage, this.key);
                 }
-                this.outputFraction = this.storage;
+                this.outputFraction = this.storage; //Display the result by storing it into outputFraction
                 this.equalHasBeenPressed = true;
                 this.operationPressed = false;
             },
