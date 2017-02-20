@@ -120,11 +120,9 @@
                 }
             },
             pressedAdd() {
+                //If the user did not click equal when add is pressed
                 if (this.equalHasBeenPressed === false) {
-                    this.pressedEqual();
-                }
-                else {
-                    this.equalHasBeenPressed = false;
+                    this.pressedEqual(); //Evaluate the previous operation before proceeding
                 }
                 this.operationPressed = true;
                 this.currentOperation = "add";
