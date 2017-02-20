@@ -56,12 +56,12 @@
         name: 'app',
         data () {
             return {
-                storage: math.fraction(0, 1),
-                outputFraction: math.fraction(0, 1),
-                key: math.fraction(0, 1),
-                currentOperation: "add",
-                operationPressed: false,
-                equalHasBeenPressed: false
+                storage: math.fraction(0, 1), //Storage is used to store the previous displayed value after a number key is pressed
+                outputFraction: math.fraction(0, 1), //The number displayed on the UI directly depends on outputFraction
+                key: math.fraction(0, 1), //Key stores the value of the pressed number
+                currentOperation: "add", //Self-explanatory, set to add because the first time a number key is pressed can be viewed as 0 + num
+                operationPressed: false, //Is true if and only if the last key pressed is one of the four operations (+, -, *, /)
+                equalHasBeenPressed: false //When equalHasBeenPressed is true and a number key is pressed, the previous value will be cleared.
             }
         },
         computed: {
@@ -192,12 +192,15 @@
                 this.equalHasBeenPressed = true;
                 this.operationPressed = false;
             },
+
+            //Reset everything to the initial state
             pressedClear() {
                 this.storage = math.fraction(0, 1);
                 this.outputFraction = math.fraction(0, 1);
                 this.key = math.fraction(0, 1);
                 this.currentOperation = "add";
                 this.equalHasBeenPressed = false;
+                this.operationPressed = false;
             }
         },
         created() {
